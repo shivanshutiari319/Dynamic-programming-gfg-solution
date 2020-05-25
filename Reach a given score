@@ -1,0 +1,27 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+	int n;
+	cin>>n;
+	while(n--){
+	    int k;
+	    cin>>k;
+	    int a[k+1]={0};
+	    a[0]=1;
+	    for(int i=3;i<=k;i++){
+	        a[i]+=a[i-3];
+	    }
+	    for(int i=5;i<=k;i++){
+	        a[i]+=a[i-5];
+	    }
+	    for(int i=10;i<=k;i++){
+	        a[i]+=a[i-10];
+	    }
+	    
+	    cout<<a[k]<<endl;
+	    
+	}
+	
+	return 0;
+}
