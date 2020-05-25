@@ -1,0 +1,50 @@
+#include <bits/stdc++.h>
+using namespace std;
+//check string is palindrome or not
+bool ispalindrome(string s,int i,int j){
+    string h="";
+    for(int k=i;k<=j;k++){
+        h+=s[k];
+    }
+    
+  string g="";
+   for(int k=j;k>=i;k--){
+       g+=s[k];
+   }
+    
+    return g==h;
+}
+int arr[1001][1001];
+
+int solve(string s,int i,int j){
+    if(i>=j)return 0;
+   if(arr[i][j]!=-1)return arr[i][j];
+    if(ispalindrome(s,i,j))return 0;
+    int mn=INT_MAX;
+    
+    for(int k=i;k<j;k++){
+        
+        int t=solve(s,i,k)+solve(s,k+1,j)+1;
+        
+        mn=min(mn,t);
+        
+        
+    }
+    return arr[i][j]=mn;
+   }
+int main() {
+	int n;
+	cin>>n;
+	while(n--){
+	    
+	    string s;
+	    cin>>s;
+	    int n=s.length();
+	    memset(arr,-1,sizeof(arr));
+	    int t=solve(s,0,n-1);
+	    cout<<t<<endl;
+	    
+	    
+	}
+	return 0;
+}
