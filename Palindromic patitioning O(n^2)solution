@@ -1,0 +1,72 @@
+#include <bits/stdc++.h>
+using namespace std;
+int w[1001][1001];
+bool ispalindrome(string s,int i,int j){
+    int z=i,x=j;
+    if(w[i][j]!=-1)return w[i][j];
+    
+    if(i==j)return true;
+    
+    while(i<=j){
+        if(s[i]!=s[j])return w[z][x]=false;
+        i++;
+        j--;
+        
+        
+        
+    }
+    
+    return w[z][x]=true;
+}
+
+
+int solve(string s,int i,int j, vector<vector<int>>&arr){
+    if(i>=j)return 0;
+   if(arr[i][j]!=-1)return arr[i][j];
+    if(ispalindrome(s,i,j))return 0;
+    int mn=INT_MAX;
+    
+    for(int k=i;k<j;k++){
+        int t1,t2;
+        if(arr[i][k]!=-1)t1=arr[i][k];
+        else { t1=solve(s,i,k,arr);
+        
+           arr[i][k]=t1;
+        }
+         if(arr[k+1][j]!=-1)t2=arr[k+1][j];
+         else {t2=solve(s,k+1,j,arr);
+         
+         arr[k+1][j]=t2;
+         }
+        int t=t1+t2+1;
+        mn=min(mn,t);
+        
+        
+    }
+    return arr[i][j]=mn;
+    
+    
+    
+    
+}
+
+
+
+
+int main() {
+	int n;
+	cin>>n;
+	while(n--){
+	    
+	    string s;
+	    cin>>s;
+	    int n=s.length();
+	   vector<vector<int>>arr(n+1,vector<int>(n+1,-1));
+	memset(w,-1,sizeof(w));
+	    int t=solve(s,0,n-1,arr);
+	    cout<<t<<endl;
+	    
+	    
+	}
+	return 0;
+}
