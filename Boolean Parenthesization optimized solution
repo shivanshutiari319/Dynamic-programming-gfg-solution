@@ -1,0 +1,116 @@
+#include <bits/stdc++.h>
+using namespace std;
+int arr[202][202][2];
+int solve(string s,int i,int j,bool istrue){
+   
+    
+    if(i>j)return 0;
+     if(arr[i][j][istrue]!=-1)return arr[i][j][istrue];
+    if(i==j){
+        if(istrue==true){
+            arr[i][j][istrue]=(s[i]=='T');
+            return   arr[i][j][istrue];}
+        else{ 
+            
+             arr[i][j][istrue]=(s[i]=='F');
+            return arr[i][j][istrue];}
+    }
+   
+    int ans=0;
+    int lt,lf,rt,rf;
+    for(int k=i+1;k<j;k+=2){
+        if(arr[i][k-1][true]!=-1)lt=arr[i][k-1][true];
+        else  {arr[i][k-1][true]=solve(s,i,k-1,true);
+            lt=arr[i][k-1][true];
+        }
+         if(arr[i][k-1][false]!=-1)lf=arr[i][k-1][false];
+         else{
+        lf=solve(s,i,k-1,false);
+        arr[i][k-1][false]=lf;
+         }
+        
+         if(arr[k+1][j][true]!=-1)rt=arr[k+1][j][true];
+       else{ rt=solve(s,k+1,j,true);
+      arr[k+1][j][true]=rt;
+       }
+        
+        
+         if(arr[k+1][j][false]!=-1)rf=arr[k+1][j][false];
+      else { 
+          rf=solve(s,k+1,j,false);
+        arr[k+1][j][false]=rf;
+          
+          
+      }
+        if(s[k]=='&'){
+            if(istrue==true){
+                
+                ans=(ans+lt*rt);
+                
+                
+            }else ans=(ans+lt*rf+rt*lf+lf*rf);
+            
+            
+        }
+        else if(s[k]=='|'){
+             if(istrue==false){
+                
+                ans=(ans+lf*rf);
+                
+                
+            }else ans=(ans+lt*rf+rt*lf+lt*rt);
+            
+            
+        }
+        else if(s[k]=='^'){
+            
+              if(istrue==false){
+                
+                ans=(ans+lf*rf+lt*rt);
+                
+                
+            }else ans=(ans+lt*rf+rt*lf);
+            
+            
+            
+            
+        }
+        
+    }
+    arr[i][j][istrue]=ans%1003;
+    return  arr[i][j][istrue];
+    
+    
+    
+}
+
+int solvee(string s){
+    int n=s.length();
+    return solve(s,0,n-1,true);
+}
+
+
+
+
+
+int main() {
+    ios::sync_with_stdio(0);
+	cin.tie(0);
+int n;
+cin>>n;
+while(n--){
+    int y;
+    cin>>y;
+    string s;
+    cin>>s;
+    
+    
+   
+    memset(arr,-1,sizeof(arr));
+    int t=solvee(s);
+    cout<<t<<endl;
+    
+    
+}
+	return 0;
+}
