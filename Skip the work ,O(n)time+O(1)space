@@ -1,0 +1,45 @@
+#include <bits/stdc++.h>
+using namespace std;
+// int b[10001];
+// int solve(int a[],int k){
+  
+//   if(k<0)return 0;
+   
+//     if(b[k]!=-1)return b[k];
+//     return b[k]=min(a[k-1]+solve(a,k-1),a[k-2]+solve(a,k-2));
+    
+    
+    
+    
+    
+    
+// }
+int main() {
+	int n;
+	cin>>n;
+	while(n--){
+	    int k;
+	    cin>>k;
+	   
+	    int a[k+1];
+	   
+	    for(int i=0;i<k;i++)cin>>a[i];
+	 a[k]=0;
+	  for(int i=2;i<=k;i++){
+	     a[i]=min(a[i-1]+a[i],a[i-2]+a[i]);
+	  }
+	  cout<<a[k]<<endl;
+	  
+	  
+	  
+	   // memset(b,-1,sizeof(b));
+	   //int t=solve(a,k); 
+	   // cout<<t<<endl;
+	  
+	    
+	    
+	    
+	    
+	}
+	return 0;
+}
